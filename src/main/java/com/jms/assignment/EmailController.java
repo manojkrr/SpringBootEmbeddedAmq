@@ -29,7 +29,18 @@ public class EmailController {
 
     @GetMapping("/")
     @ResponseBody
-    public List<Email> getAllMessage() {
-        return emailMessages.getAllJmsMessages();
+    public String getAllMessage() {
+        List<Email> emails = emailMessages.getAllJmsMessages();
+        StringBuilder sb = new StringBuilder();
+        sb.append("<table border='1'>");
+        sb.append("<tr><th>To</th><th>Body</th></tr>");
+        for (Email email : emails) {
+            sb.append("<tr>");
+            sb.append("<td>").append(email.getTo()).append("</td>");
+            sb.append("<td>").append(email.getBody()).append("</td>");
+            sb.append("</tr>");
+        }
+        sb.append("</table>");
+        return sb.toString();
     }
 }
