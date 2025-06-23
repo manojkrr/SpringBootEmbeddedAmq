@@ -20,14 +20,14 @@ public class EmailController {
     }
 
 
-    @PostMapping("/")
+    @PostMapping("/api/sendEmail")
     public String sendEmail(@RequestBody Email email) {
         log.info("Received Email Request from Controller {}", email);
         boolean isMessageSent = emailMessagePublisher.sendEmail(email);
         return isMessageSent ? "SUCCESS" : "FAILED";
     }
 
-    @GetMapping("/")
+    @GetMapping("/api/getAllMessages")
     @ResponseBody
     public String getAllMessage() {
         List<Email> emails = emailMessages.getAllJmsMessages();
